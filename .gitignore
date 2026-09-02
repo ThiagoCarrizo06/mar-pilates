@@ -1,0 +1,7 @@
+# Carpeta que crea el CLI de Vercel al vincular el proyecto
+.vercel
+
+# Basura de Windows y de macOS
+Thumbs.db
+desktop.ini
+.DS_Store

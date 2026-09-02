@@ -1,0 +1,1250 @@
+/* ============================================================
+   MAR PILATES · Pilates Reformer, Mar del Plata
+   Identidad tomada del logo oficial. Azul profundo #2A388C y
+   celeste #00A8EE, muestreados del archivo real.
+   El azul es identidad, no fondo: la pagina es clara y luminosa.
+   ============================================================ */
+
+:root{
+  /* Fondos. Claros, con un neutro apenas calido para no caer en el azul total. */
+  --canvas:   #FCFCFB;
+  --surface:  #F2F2EF;
+  --espuma:   #EDF2F8;   /* celeste lavado, el tercer nivel de fondo */
+  --panel:    #FFFFFF;
+
+  /* Identidad, del logo */
+  --azul:        #2A388C;
+  --azul-noche:  #1C2566;
+  --azul-hondo:  #121A4A;
+  --celeste:     #00A8EE;
+  --celeste-luz: #7FD4F7;
+  --celeste-txt: #0A6E9E;   /* unica variante de celeste legible como texto */
+
+  /* Texto */
+  --tinta:    #15183A;
+  --tinta-2:  #5A6076;
+  --claro:    #F4F5F8;
+  --claro-2:  #AAB2C8;
+
+  --linea:    rgba(42, 56, 140, .16);
+  --linea-2:  rgba(42, 56, 140, .30);
+  --linea-cl: rgba(244, 245, 248, .20);
+
+  --display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --texto:   "Manrope", "Segoe UI", system-ui, sans-serif;
+  --mono:    "DM Mono", ui-monospace, Consolas, monospace;
+
+  --s1:.5rem; --s2:1rem; --s3:1.5rem; --s4:2rem;
+  --s5:3rem;  --s6:4rem; --s7:5.5rem; --s8:7rem;
+  --s8-corto:5.5rem;   /* secciones de poco contenido */
+
+  --wrap:1280px;
+  --gut:clamp(1.25rem,5vw,4.5rem);
+
+  --ease:cubic-bezier(.22,1,.36,1);
+  --ease-io:cubic-bezier(.65,0,.35,1);
+  --dur:340ms;
+  --r:3px;                 /* radio unico y minimo en todo el sitio */
+
+  /* Los caminos a WhatsApp usan el celeste de la marca, no el verde de la app.
+     Texto en azul hondo: sobre #00A8EE da 6.16:1, el blanco daria 2.68:1.
+     El borde apenas mas profundo despega el boton de los fondos claros. */
+  --wa:       #00A8EE;
+  --wa-txt:   #121A4A;
+  --wa-hover: #0090CF;
+  --wa-borde: #0090CF;
+
+  /* Degradados de agua: el azul profundo nunca aparece plano.
+     Van de la profundidad al celeste, como el mar de fondo a orilla. */
+  --grad-hondo:  linear-gradient(160deg, #101A4E 0%, #1C2566 46%, #24418C 100%);
+  --grad-noche:  linear-gradient(155deg, #161E52 0%, #1F2E6F 55%, #2A4A8C 100%);
+  --grad-espuma: linear-gradient(170deg, #F4F8FC 0%, #E7F0F9 100%);
+  --vidrio:      rgba(226, 240, 251, .72);   /* celeste translucido del menu */
+}
+
+*,*::before,*::after{ box-sizing:border-box }
+*{ margin:0 }
+
+html{
+  overflow-x:hidden; overflow-x:clip;
+  scroll-behavior:smooth;
+  -webkit-text-size-adjust:100%;
+  scroll-padding-top:5.5rem;
+}
+body{
+  overflow-x:hidden; overflow-x:clip;
+  background:var(--canvas);
+  color:var(--tinta);
+  font-family:var(--texto);
+  font-size:1.0625rem;
+  line-height:1.68;
+  -webkit-font-smoothing:antialiased;
+}
+
+img,svg,video{ display:block; max-width:100%; height:auto }
+ul,ol{ list-style:none; padding:0 }
+/* El atributo hidden tiene que ganarle a cualquier display que pongamos
+   despues. Sin esto, .menu{display:grid} deja el menu abierto para siempre. */
+[hidden]{ display:none !important }
+a{ color:inherit }
+button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer }
+
+:focus-visible{ outline:2px solid var(--celeste-txt); outline-offset:3px; border-radius:var(--r) }
+.fin :focus-visible,.foot :focus-visible,.hero :focus-visible{ outline-color:var(--celeste-luz) }
+
+.skip{ position:absolute; left:-9999px; top:0; z-index:999; background:var(--azul); color:#fff; padding:.85rem 1.25rem }
+.skip:focus{ left:0 }
+
+.wrap{ width:100%; max-width:var(--wrap); margin-inline:auto; padding-inline:var(--gut) }
+
+/* ---------- Tipografia base ---------- */
+.kicker{
+  font-family:var(--mono); font-size:.75rem; font-weight:300;
+  letter-spacing:.2em; text-transform:uppercase;
+  color:var(--celeste-txt); margin-bottom:var(--s3);
+  display:flex; align-items:flex-start; gap:.6rem;
+}
+/* Cada kicker arranca con un trazo celeste: el gesto del logo, en chico */
+.kicker::before{ content:""; width:22px; height:2px; background:var(--celeste); flex:none; margin-top:.62em }
+.h2{
+  font-family:var(--display); font-weight:300;
+  font-size:clamp(1.7rem,4.6vw,3.4rem);
+  line-height:1.06; letter-spacing:-.022em;
+  font-variation-settings:"SOFT" 28,"WONK" 0;
+  text-wrap:balance;
+}
+.h2 em{ font-style:italic; color:var(--azul); font-variation-settings:"SOFT" 55,"WONK" 1 }
+
+.ghost{
+  text-decoration:none;
+  background-image:linear-gradient(currentColor,currentColor);
+  background-size:100% 1px; background-repeat:no-repeat; background-position:0 100%;
+  padding-bottom:2px;
+  transition:background-size var(--dur) var(--ease);
+}
+.ghost:hover{ background-size:0% 1px; background-position:100% 100% }
+
+/* ---------- Botones ---------- */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  min-height:50px; padding:.95rem 2rem;
+  background:var(--azul); color:#fff;
+  font-size:.8125rem; font-weight:500;
+  letter-spacing:.13em; text-transform:uppercase;
+  text-decoration:none; border:1px solid var(--azul); border-radius:var(--r);
+  transition:background var(--dur) var(--ease),color var(--dur) var(--ease),
+             border-color var(--dur) var(--ease),transform var(--dur) var(--ease);
+}
+.btn:hover{ background:var(--azul-noche); border-color:var(--azul-noche); transform:translateY(-2px) }
+.btn--ghost{ background:transparent; color:var(--azul) }
+.btn--ghost:hover{ background:var(--azul); color:#fff }
+.btn--light{ background:#fff; color:var(--azul-hondo); border-color:#fff }
+.btn--light:hover{ background:var(--celeste-luz); border-color:var(--celeste-luz); color:var(--azul-hondo) }
+.btn--sm{ min-height:44px; padding:.6rem 1.15rem; font-size:.75rem; letter-spacing:.1em }
+.btn--lg{ padding:1.2rem 2.6rem; font-size:.8125rem }
+
+@media (pointer:coarse){ .btn{ min-height:48px; display:inline-flex; align-items:center; justify-content:center } }
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+.nav{
+  position:fixed; inset:0 0 auto 0; z-index:100;
+  border-bottom:1px solid transparent;
+  transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease);
+}
+.nav.stuck{ background:rgba(252,252,251,.9); backdrop-filter:blur(14px); border-bottom-color:var(--linea) }
+.nav__in{
+  max-width:var(--wrap); margin-inline:auto; padding:.7rem var(--gut);
+  display:flex; align-items:center; gap:var(--s4);
+}
+.brand{ display:flex; align-items:center; margin-right:auto; min-height:44px }
+.brand__logo{ height:52px; width:auto }
+
+.nav__links{ display:none; gap:var(--s4) }
+.nav__links a{
+  position:relative; display:inline-flex; align-items:center; min-height:44px;
+  font-size:.8125rem; letter-spacing:.03em; text-decoration:none; color:var(--tinta);
+}
+.nav__links a::after{
+  content:""; position:absolute; left:0; bottom:12px; width:0; height:1px;
+  background:var(--celeste); transition:width var(--dur) var(--ease);
+}
+.nav__links a:hover::after{ width:100% }
+.nav__cta{ display:none }
+
+.burger{ width:48px; height:48px; display:grid; place-content:center; gap:6px; margin-left:auto }
+.burger span{ display:block; width:22px; height:1.5px; background:var(--azul); transition:transform var(--dur) var(--ease) }
+.burger[aria-expanded="true"] span:first-child{ transform:translateY(3.75px) rotate(45deg) }
+.burger[aria-expanded="true"] span:last-child{ transform:translateY(-3.75px) rotate(-45deg) }
+
+.menu{
+  background:var(--vidrio);
+  -webkit-backdrop-filter:blur(14px) saturate(140%);
+  backdrop-filter:blur(14px) saturate(140%);
+  border-top:1px solid rgba(0,168,238,.28);
+  box-shadow:0 18px 40px rgba(18,26,74,.14);
+  padding:var(--s2) var(--gut) var(--s4); display:grid; gap:.1rem;
+}
+/* Sin soporte de blur el menu tiene que seguir siendo opaco y legible */
+@supports not (backdrop-filter:blur(4px)){ .menu{ background:#EAF2FB } }
+.menu a{ font-family:var(--display); font-size:1.5rem; font-weight:300; text-decoration:none; min-height:48px; display:flex; align-items:center }
+.menu__cta{ margin-top:var(--s2); font-family:var(--texto); font-size:.8125rem; justify-content:center; color:#fff }
+
+/* ============================================================
+   HERO · recorrido por el estudio
+   ============================================================ */
+.hero{ position:relative }
+.hero__stage{
+  position:relative; height:100svh; min-height:560px;
+  overflow:hidden; display:flex; align-items:flex-end;
+  background:var(--surface);
+}
+.hero__frames{ position:absolute; inset:0 }
+.hero__frame{ position:absolute; inset:0; opacity:0 }
+.hero__frame.is-on{ opacity:1 }
+.hero__frame img{ width:100%; height:100%; object-fit:cover }
+
+/* Velo: preparado para fotografia real, no solo para el placeholder */
+.hero__veil{
+  position:absolute; inset:0;
+  background:
+    linear-gradient(200deg, rgba(16,26,78,.62) 0%, rgba(36,65,140,.34) 38%, rgba(0,168,238,.16) 100%),
+    linear-gradient(to top, rgba(16,26,78,.92) 0%, rgba(16,26,78,.66) 30%, rgba(16,26,78,.18) 62%, rgba(16,26,78,.30) 100%);
+}
+.hero__copy{
+  position:relative; z-index:2;
+  max-width:var(--wrap); width:100%; margin-inline:auto;
+  padding:0 var(--gut) clamp(3rem,8vh,5.5rem);
+  color:#fff;
+}
+.hero .kicker{ color:var(--celeste-luz) }
+.hero .kicker::before{ background:var(--celeste-luz) }
+.hero__h1{
+  font-family:var(--display); font-weight:300;
+  font-size:clamp(2.6rem,7.6vw,5.8rem);
+  line-height:1; letter-spacing:-.03em; margin-bottom:var(--s3);
+  font-variation-settings:"SOFT" 38,"WONK" 0;
+}
+.hero__h1 em{ font-style:italic; color:var(--celeste-luz); font-variation-settings:"SOFT" 60,"WONK" 1 }
+.hero__h1 .ln{ display:block; overflow:hidden; padding-bottom:.1em; margin-bottom:-.06em }
+.hero__h1 .ln>span{ display:block }
+.hero__lead{ font-size:clamp(1.0625rem,1.4vw,1.1875rem); max-width:42ch; color:#DDE6F2 }
+.hero__cta{ display:flex; flex-wrap:wrap; align-items:center; gap:var(--s3); margin-top:var(--s4) }
+.hero__cta .ghost{
+  display:inline-flex; align-items:center; gap:.45rem; min-height:44px;
+  color:rgba(255,255,255,.72); font-size:.9375rem;
+  background-size:100% 1px; background-position:0 100%;
+  transition:color var(--dur) var(--ease), gap var(--dur) var(--ease), background-size var(--dur) var(--ease);
+}
+.hero__cta .ghost::after{ content:"→"; font-size:.9em; transition:transform var(--dur) var(--ease) }
+.hero__cta .ghost:hover{ color:#fff; gap:.7rem; background-size:100% 1px }
+.hero__cta .ghost:hover::after{ transform:translateX(3px) }
+
+.hero__pips{ position:absolute; right:var(--gut); bottom:clamp(3rem,8vh,5.5rem); z-index:2; display:none; gap:.5rem }
+.hero__pips span{ width:22px; height:2px; background:rgba(255,255,255,.34); transition:background var(--dur) var(--ease) }
+.hero__pips span.is-on{ background:var(--celeste-luz) }
+
+/* ---- Desktop: hero partido ----
+   Las fotografias del estudio son verticales, asi que en pantallas grandes
+   la imagen ocupa una columna alta en vez de recortarse a lo ancho. */
+@media (min-width:900px){
+  .hero__stage{
+    display:grid;
+    grid-template-columns:1fr minmax(300px,.78fr);
+    align-items:stretch;
+    background:var(--canvas);
+  }
+  .hero__frames{ position:relative; inset:auto; grid-area:1/2; height:100%; overflow:hidden }
+  .hero__veil{ display:none }
+
+  .hero__copy{
+    grid-area:1/1; align-self:center;
+    max-width:none; margin:0;
+    padding:0 clamp(2rem,4vw,4rem) 0 var(--gut);
+    color:var(--tinta);
+  }
+  .hero .kicker{ color:var(--celeste-txt) }
+  .hero .kicker::before{ background:var(--celeste) }
+  .hero__h1{ color:var(--tinta) }
+  .hero__h1 em{ color:var(--azul) }
+  .hero__lead{ color:var(--tinta-2) }
+  .hero__cta .ghost{ color:var(--azul) }
+
+  .hero__pips{ right:auto; left:var(--gut); bottom:clamp(2rem,5vh,3.5rem) }
+  .hero__pips span{ background:var(--linea-2) }
+  .hero__pips span.is-on{ background:var(--celeste) }
+
+  /* El recorrido solo se arma con movimiento activo */
+  .anim .hero{ height:200vh }
+  .anim .hero__stage{ position:sticky; top:0 }
+  .anim .hero__frame{ transition:opacity 1s var(--ease-io) }
+  .anim .hero__pips{ display:flex }
+}
+
+/* ============================================================
+   3. PRESENTACION · dos columnas asimetricas
+   ============================================================ */
+.pres{ padding-block:clamp(4.5rem,11vw,var(--s8)) }   /* canvas */
+.pres__grid{ display:grid; gap:clamp(2.5rem,6vw,var(--s6)); align-items:center }
+.pres__t{ margin-top:var(--s3) }
+.pres__t p{ color:var(--tinta-2); max-width:50ch }
+.pres__t p+p{ margin-top:var(--s2) }
+/* El precio, adelantado. Antes el primero aparecia al 68% del scroll. */
+.desde{
+  display:flex; flex-wrap:wrap; align-items:baseline; gap:.15rem .6rem;
+  margin-top:var(--s4); padding-top:var(--s3);
+  border-top:1px solid var(--linea);
+}
+.desde__n{
+  font-family:var(--display); font-weight:400;
+  font-size:clamp(1.25rem,2.1vw,1.5rem); letter-spacing:-.015em;
+  color:var(--azul); font-variant-numeric:tabular-nums;
+}
+.desde__t{ font-size:.9375rem; color:var(--tinta-2) }
+.pres__fig{ margin:0; overflow:hidden; border-radius:var(--r); background:var(--surface) }
+.pres__fig img{ width:100%; aspect-ratio:4/5; object-fit:cover }
+
+/* ============================================================
+   4. BENEFICIOS · dos listas alrededor de una fotografia
+   ============================================================ */
+.ben{ padding-block:clamp(4.5rem,11vw,var(--s8)) }   /* canvas */
+.ben__top{ margin-bottom:clamp(2.5rem,6vw,var(--s6)) }
+.ben__grid{ display:grid; gap:clamp(2rem,5vw,var(--s5)); align-items:center }
+.ben__l{ display:grid; gap:var(--s4) }
+.ben__l li{ display:grid; gap:.2rem }
+.ben__n{ font-family:var(--mono); font-size:.75rem; letter-spacing:.14em; color:var(--celeste-txt) }
+.ben__l h3{
+  font-family:var(--display); font-weight:400;
+  font-size:clamp(1.25rem,2.1vw,1.5rem); line-height:1.15; letter-spacing:-.012em;
+}
+.ben__l p{ color:var(--tinta-2); font-size:.9375rem; max-width:34ch }
+.ben__fig{ margin:0; overflow:hidden; border-radius:var(--r); background:var(--canvas) }
+.ben__fig img{ width:100%; aspect-ratio:3/4; object-fit:cover }
+
+/* ============================================================
+   5. CLASES · encabezado partido + dos piezas
+   ============================================================ */
+.clases{ padding-block:clamp(4.5rem,11vw,var(--s8)); background:var(--grad-espuma) }
+.clases__head{ display:grid; gap:var(--s3); margin-bottom:clamp(2.5rem,6vw,var(--s6)) }
+.clases__lead{ color:var(--tinta-2); max-width:44ch }
+.clases__grid{ display:grid; gap:clamp(2rem,5vw,var(--s5)) }
+.paso__fig{ margin:0 0 var(--s3); overflow:hidden; border-radius:var(--r); background:var(--surface) }
+/* En telefono las dos piezas van apiladas: en vertical medirian dos
+   pantallas enteras, asi que ahi el encuadre se acuesta. */
+.paso__fig img{ width:100%; aspect-ratio:4/3; object-fit:cover }
+@media (min-width:640px){ .paso__fig img{ aspect-ratio:3/4 } }
+.paso__n{ font-family:var(--mono); font-size:.75rem; letter-spacing:.18em; text-transform:uppercase; color:var(--celeste-txt); margin-bottom:.5rem }
+.paso h3{ font-family:var(--display); font-weight:400; font-size:clamp(1.375rem,2.4vw,1.75rem); line-height:1.12; margin-bottom:.6rem }
+.paso p{ color:var(--tinta-2); max-width:42ch }
+.clases__cta{ margin-top:clamp(2.5rem,6vw,var(--s5)) }
+
+/* ============================================================
+   6. PILARES · la seccion de mas peso visual del sitio
+   ============================================================ */
+.pilares{ padding-block:clamp(4.5rem,11vw,var(--s8)); background:var(--grad-noche); color:var(--claro) }
+.pilar{ display:grid; gap:var(--s2); max-width:22ch }
+.pilar--b{ margin-left:auto; text-align:right }
+.pilar__k{ font-family:var(--mono); font-size:.75rem; letter-spacing:.2em; color:var(--celeste-txt) }
+.pilar__h{
+  font-family:var(--display); font-weight:300;
+  font-size:clamp(2.125rem,6.6vw,4.4rem);
+  line-height:.98; letter-spacing:-.03em;
+  font-variation-settings:"SOFT" 34,"WONK" 0;
+}
+.pilar__h em{ font-style:italic; color:var(--azul); font-variation-settings:"SOFT" 60,"WONK" 1 }
+.pilar__t{ color:var(--tinta-2); font-size:.9375rem; max-width:38ch; margin-top:var(--s2) }
+.pilar--b .pilar__t{ margin-left:auto }
+.pilar__sep{ margin-block:clamp(2rem,5vw,var(--s5)); overflow:hidden }
+.pilar__sep svg{ width:100%; height:clamp(40px,6vw,70px) }
+.anim .pilar__sep path{ stroke-dasharray:var(--len) var(--len); stroke-dashoffset:var(--len) }
+.anim .pilar__sep.drawn path{ stroke-dashoffset:0; transition:stroke-dashoffset 2.2s var(--ease-io) }
+/* Cierre de la seccion: la llamada que faltaba en el medio de la pagina */
+.pilares__cta{
+  margin-top:clamp(2.5rem,6vw,var(--s6));
+  padding-top:var(--s4); border-top:1px solid var(--linea);
+  display:flex; flex-direction:column; align-items:flex-start; gap:var(--s3);
+}
+.pilares__cta-t{
+  font-family:var(--display); font-style:italic; font-weight:300;
+  font-size:clamp(1.125rem,2vw,1.375rem); line-height:1.3;
+  color:var(--tinta-2); max-width:34ch;
+}
+
+/* Pilares va sobre azul: el texto y los acentos se invierten */
+.pilares .kicker{ color:var(--celeste-luz) }
+.pilares .kicker::before{ background:var(--celeste-luz) }
+.pilar__k{ color:var(--celeste-luz) }
+.pilar__h{ color:var(--claro) }
+.pilar__h em{ color:var(--celeste-luz) }
+.pilar__t{ color:#CBD6EA }
+.pilares__cta{ border-top-color:var(--linea-cl) }
+.pilares__cta-t{ color:#CBD6EA }
+.pilares .btn:not(.btn--claro){ background:#fff; color:var(--azul-hondo); border-color:#fff }
+.pilares .btn:not(.btn--claro):hover{ background:var(--celeste-luz); border-color:var(--celeste-luz); color:var(--azul-hondo) }
+.pilares :focus-visible{ outline-color:var(--celeste-luz) }
+
+/* ============================================================
+   BIENESTAR · tarjeta sutil para el servicio complementario
+   Va sobre canvas, entre dos secciones de mas peso, para que
+   se lea como un apunte y no compita con el Reformer.
+   ============================================================ */
+.bien{ padding-block:clamp(3rem,7vw,var(--s6)); background:var(--canvas) }
+.bien__in{ display:grid }
+.bien__card{
+  border:1px solid var(--linea); border-left:3px solid var(--celeste);
+  border-radius:var(--r); background:var(--panel);
+  padding:clamp(1.5rem,3.5vw,2.4rem);
+  max-width:760px;
+  display:grid; justify-items:start; gap:.15rem;
+  transition:border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.bien__card:hover{ transform:translateY(-2px) }
+.bien__card .kicker{ margin-bottom:var(--s2) }
+.bien__h{
+  font-family:var(--display); font-weight:300;
+  font-size:clamp(1.5rem,3vw,2.1rem); line-height:1.1; letter-spacing:-.02em;
+}
+.bien__h em{ font-style:italic; color:var(--azul) }
+.bien__t{ color:var(--tinta-2); margin-top:var(--s2); max-width:52ch }
+.bien__link{
+  color:var(--celeste-txt); margin-top:var(--s3);
+  display:inline-flex; align-items:center; gap:.4rem; min-height:44px;
+}
+.bien__link::after{ content:"→"; transition:transform var(--dur) var(--ease) }
+.bien__link:hover::after{ transform:translateX(3px) }
+
+/* ============================================================
+   7. EXPERIENCIA · texto y marcas de la casa, sin fotografia
+   ============================================================ */
+.exp{ padding-block:clamp(4.5rem,11vw,var(--s8)); background:var(--surface) }
+.exp__grid{ display:grid; gap:clamp(2.5rem,6vw,var(--s6)); align-items:center }
+.marcas{ display:grid; gap:1px; background:var(--linea); border-block:1px solid var(--linea) }
+.marcas>div{ background:var(--surface); padding:var(--s3) }
+.marcas dt{
+  font-family:var(--display); font-weight:400;
+  font-size:clamp(1.125rem,1.9vw,1.25rem); line-height:1.15; margin-bottom:.35rem;
+}
+.marcas dd{ margin:0; font-size:.9375rem; color:var(--tinta-2); max-width:30ch }
+.exp__t{ margin-top:var(--s3) }
+.exp__t p{ color:var(--tinta-2); max-width:48ch }
+.exp__t p+p{ margin-top:var(--s2) }
+
+/* ============================================================
+   8. EL ESPACIO · galeria asimetrica
+   ============================================================ */
+.espacio{ padding-block:clamp(4.5rem,11vw,var(--s8)) }   /* canvas */
+.espacio__head{ display:grid; gap:var(--s3); margin-bottom:clamp(2.5rem,6vw,var(--s6)) }
+.espacio__lead{ color:var(--tinta-2); max-width:40ch }
+/* Dos fotos, las dos enteras. Antes esto era un carrusel horizontal,
+   pero con solo dos piezas la segunda quedaba fuera de pantalla y no
+   habia ninguna senal de que se pudiera deslizar. */
+.gal{ display:grid; gap:clamp(.75rem,2.5vw,var(--s3)) }
+.gal__i{ margin:0; overflow:hidden; border-radius:var(--r); background:var(--surface) }
+.gal__i img{ width:100%; height:100%; object-fit:cover }
+.gal__i img{ aspect-ratio:4/5 }
+@media (min-width:768px){ .gal__i img{ aspect-ratio:4/5 } }
+
+/* ============================================================
+   9. PRECIOS · tabla editorial, no tarjetas genericas
+   ============================================================ */
+.precios{ padding-block:clamp(4.5rem,11vw,var(--s8)); background:var(--grad-espuma) }
+.precios__head{ margin-bottom:clamp(2.5rem,6vw,var(--s6)) }
+/* La tabla es tambien el selector: cada plan es una opcion de un grupo
+   de radios. Asi el teclado y los lectores de pantalla funcionan solos. */
+.precios__set{ border:0; padding:0; margin:0; min-width:0 }
+.precios__pista{
+  padding:0; margin-bottom:var(--s3);
+  font-size:.9375rem; color:var(--tinta-2);
+}
+.precios__tabla{ display:grid; border-top:1px solid var(--linea-2) }
+.tar{
+  display:grid; gap:.15rem; align-content:start; cursor:pointer;
+  padding-block:clamp(1.5rem,3.2vw,2.2rem);
+  border-bottom:1px solid var(--linea);
+  position:relative;
+  transition:background var(--dur) var(--ease),padding-left var(--dur) var(--ease);
+}
+.tar:hover{ background:rgba(255,255,255,.6) }
+
+/* El radio real queda oculto pero sigue siendo el que manda */
+.tar input{
+  position:absolute; opacity:0; width:1px; height:1px;
+  margin:0; pointer-events:none;
+}
+/* La etiqueta se estira sobre toda la tarjeta: se puede elegir tocando
+   cualquier parte, igual que cuando el <label> envolvia todo. El boton
+   viaja por encima, asi tocarlo no cuenta como elegir la tarjeta. */
+.tar__lbl{ position:absolute; inset:0; cursor:pointer; border-radius:var(--r) }
+/* Marca de elegido. Va arriba a la derecha para no chocar con el filete
+   celeste de la tarjeta destacada, que significa otra cosa. */
+.tar__marca{
+  position:absolute; top:clamp(1.5rem,3.2vw,2.2rem); right:0;
+  width:22px; height:22px; border-radius:50%;
+  border:1.5px solid var(--linea-2);
+  display:grid; place-content:center; pointer-events:none;
+  transition:border-color var(--dur) var(--ease),background var(--dur) var(--ease);
+}
+.tar__marca::after{
+  content:""; width:9px; height:5px;
+  border-left:2px solid #fff; border-bottom:2px solid #fff;
+  transform:rotate(-45deg) translate(1px,-1px) scale(.5);
+  opacity:0;
+  transition:opacity var(--dur) var(--ease),transform var(--dur) var(--ease);
+}
+.tar:hover .tar__marca{ border-color:var(--celeste) }
+.tar:has(input:checked),.tar.is-elegida{ background:var(--panel) }
+.tar:has(input:checked) .tar__marca,.tar.is-elegida .tar__marca{ background:var(--azul); border-color:var(--azul) }
+.tar:has(input:checked) .tar__marca::after,.tar.is-elegida .tar__marca::after{ opacity:1; transform:rotate(-45deg) translate(1px,-1px) scale(1) }
+.tar:has(input:focus-visible){ outline:2px solid var(--celeste-txt); outline-offset:2px; border-radius:var(--r) }
+/* El plan mas elegido: se levanta del resto sin romper la grilla */
+.tar--hi{
+  background:var(--panel);
+  border:1.5px solid var(--celeste);
+  border-radius:var(--r);
+  padding-inline:var(--s3);
+  box-shadow:0 10px 30px rgba(0,168,238,.16);
+  z-index:1;
+}
+.tar--hi::before{
+  content:""; position:absolute; inset:-1.5px;
+  border-radius:var(--r); pointer-events:none;
+  box-shadow:0 0 0 4px rgba(0,168,238,.10);
+}
+.tar__tag{
+  font-family:var(--mono); font-size:.75rem; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--celeste-txt); margin-bottom:.3rem;
+}
+.tar__f{ font-family:var(--texto); font-size:1.0625rem; font-weight:500 }
+.tar__p{
+  font-family:var(--display); font-weight:300;
+  font-size:clamp(1.9rem,6vw,3.6rem); line-height:1; letter-spacing:-.028em;
+  font-variant-numeric:tabular-nums;
+}
+.tar__p span{ font-size:.44em; vertical-align:.66em; margin-right:.08em; color:var(--tinta-2) }
+.tar__m{ font-family:var(--mono); font-size:.75rem; letter-spacing:.14em; text-transform:uppercase; color:var(--tinta-2) }
+
+.benef{ display:grid; gap:var(--s3); margin-top:var(--s5) }
+.benef__i{ display:flex; align-items:baseline; gap:var(--s3) }
+.benef__n{
+  font-family:var(--display); font-weight:300; font-size:clamp(2.2rem,5vw,3rem);
+  line-height:1; letter-spacing:-.03em; color:var(--azul); flex:none;
+  font-variant-numeric:tabular-nums;
+}
+.benef__n span{ font-size:.5em; vertical-align:.5em; margin-left:.04em }
+.benef__t{ font-size:.9375rem; color:var(--tinta-2); max-width:26ch }
+
+.precios__cta{ margin-top:var(--s5); display:grid; justify-items:start; gap:var(--s2) }
+.precios__nota{ font-size:.8125rem; color:var(--tinta-2) }
+
+/* ============================================================
+   10. FAQ · encabezado pegajoso + acordeon
+   ============================================================ */
+.faq{ padding-block:clamp(3.5rem,9vw,var(--s8-corto)); background:var(--grad-espuma) }
+.faq__grid{ display:grid; gap:clamp(2rem,5vw,var(--s5)) }
+.q{ border-top:1px solid var(--linea) }
+.faq__list .q:last-child{ border-bottom:1px solid var(--linea) }
+.q summary{
+  list-style:none; cursor:pointer; padding-block:1.2rem; min-height:48px;
+  display:flex; align-items:center; justify-content:space-between; gap:var(--s3);
+  font-family:var(--display); font-weight:400;
+  font-size:clamp(1.0625rem,1.8vw,1.25rem); line-height:1.28;
+  transition:color var(--dur) var(--ease);
+}
+.q summary::-webkit-details-marker{ display:none }
+.q summary:hover{ color:var(--azul) }
+.q summary::after{
+  content:""; flex:none; width:12px; height:12px;
+  background:linear-gradient(var(--azul),var(--azul)) center/12px 1.5px no-repeat,
+             linear-gradient(var(--azul),var(--azul)) center/1.5px 12px no-repeat;
+  transition:transform var(--dur) var(--ease);
+}
+.q[open] summary::after{ transform:rotate(45deg) }
+.q__a{ padding-bottom:1.4rem }
+.q__a p{ color:var(--tinta-2); font-size:.9375rem; max-width:60ch }
+.q__a p+p{ margin-top:var(--s2) }
+.q__a .ghost{ color:var(--celeste-txt); display:inline-flex; align-items:center; min-height:44px }
+
+/* ============================================================
+   11. UBICACION
+   ============================================================ */
+.ubi{ padding-block:clamp(3.5rem,9vw,var(--s8-corto)) }   /* canvas */
+.ubi__grid{ display:grid; gap:clamp(2rem,5vw,var(--s5)); align-items:center }
+.ubi__t{ color:var(--tinta-2); max-width:34ch; margin-top:var(--s2) }
+.ubi__cta{ margin-top:var(--s4) }
+/* Los dos canales de contacto, con su icono. WhatsApp para consultar,
+   Instagram para mirar el estudio antes de escribir. */
+.contacto{ display:grid; gap:.5rem; margin-top:var(--s4); padding-top:var(--s3); border-top:1px solid var(--linea) }
+.contacto a{
+  display:flex; align-items:center; gap:.85rem;
+  min-height:56px; padding:.5rem .9rem .5rem .5rem;
+  border:1px solid var(--linea); border-radius:var(--r);
+  text-decoration:none; background:var(--canvas);
+  transition:border-color var(--dur) var(--ease),transform var(--dur) var(--ease);
+}
+.contacto a:hover{ border-color:var(--celeste); transform:translateY(-2px) }
+.contacto__ic{ flex:none; width:40px; height:40px; border-radius:50%; display:grid; place-content:center; color:#fff }
+.contacto__ic--wa{ background:var(--azul) }   /* el verde es exclusivo del flotante */
+.contacto__ic--ig{ background:var(--azul) }
+.contacto__t{ display:grid; line-height:1.3; font-size:1.0625rem }
+.contacto__t b{ font-family:var(--mono); font-size:.75rem; font-weight:400; letter-spacing:.16em; text-transform:uppercase; color:var(--tinta-2) }
+
+/* Instagram como accion secundaria del cierre */
+.fin__ig{
+  display:inline-flex; align-items:center; gap:.6rem;
+  min-height:44px; margin-top:var(--s3);
+  color:#CBD6EA; text-decoration:none; font-size:.9375rem;
+  transition:color var(--dur) var(--ease);
+}
+.fin__ig b{ color:var(--claro); font-weight:600 }
+.fin__ig:hover,.fin__ig:hover b{ color:var(--celeste-luz) }
+
+/* Instagram al pie del menu de telefono */
+.menu__ig{
+  display:flex; align-items:center; gap:.55rem; min-height:48px; margin-top:.5rem;
+  font-family:var(--texto); font-size:.9375rem; color:var(--tinta-2); text-decoration:none;
+}
+.menu__ig svg{ color:var(--azul) }
+.ubi__fig{ margin:0; overflow:hidden; border-radius:var(--r); background:var(--canvas) }
+.ubi__fig img{ width:100%; aspect-ratio:1/1; object-fit:cover }
+
+/* ============================================================
+   12. CTA FINAL
+   ============================================================ */
+.fin{
+  position:relative; isolation:isolate; overflow:hidden;
+  padding-block:clamp(3.75rem,10vw,var(--s8-corto));
+  background:var(--grad-hondo); color:var(--claro); text-align:center;
+}
+.fin__wave{ position:absolute; inset:auto 0 0 0; z-index:-1 }
+.fin__wave svg{ width:145%; height:auto }
+.anim .fin__wave svg{ animation:tide 52s var(--ease-io) -10s infinite }
+@keyframes tide{ 0%,100%{ transform:translateX(0) } 50%{ transform:translateX(-16%) } }
+.fin__in{ display:grid; justify-items:center }
+.fin__h{
+  font-family:var(--display); font-weight:300;
+  font-size:clamp(1.875rem,5.6vw,4rem); line-height:1.04; letter-spacing:-.03em;
+  font-variation-settings:"SOFT" 34,"WONK" 0;
+}
+.fin__h em{ font-style:italic; color:var(--celeste-luz); font-variation-settings:"SOFT" 60,"WONK" 1 }
+.fin__l{ margin-block:var(--s3) var(--s5); max-width:44ch; color:#CBD6EA }
+
+/* ============================================================
+   13. FOOTER
+   ============================================================ */
+.foot{ background:var(--grad-hondo); color:var(--claro); padding-top:clamp(3rem,7vw,var(--s6)) }
+.foot__grid{ display:grid; gap:var(--s4); padding-bottom:var(--s5) }
+.foot__logo{ height:96px; width:auto }
+.foot__t{ margin-top:var(--s3); color:#CBD6EA; font-size:.9375rem }
+.foot__h{
+  font-family:var(--mono); font-size:.75rem; font-weight:300;
+  letter-spacing:.18em; text-transform:uppercase; color:var(--celeste-luz); margin-bottom:var(--s2);
+}
+.foot__c p,.foot__c address{ font-style:normal; font-size:.9375rem; color:#CBD6EA }
+.foot__c a{ color:var(--claro); display:inline-flex; align-items:center; min-height:44px }
+.foot__base{
+  display:flex; flex-wrap:wrap; gap:.5rem var(--s3); justify-content:space-between;
+  padding-block:var(--s3); border-top:1px solid var(--linea-cl);
+  font-size:.8125rem; color:#CBD6EA;
+}
+
+/* ---------- WhatsApp flotante: solo en celular ---------- */
+.wafx{
+  position:fixed; right:1rem; bottom:1rem; z-index:90;
+  display:inline-flex; align-items:center; gap:.6rem;
+  min-height:54px; padding:0 1.15rem 0 1rem;
+  background:var(--wa); color:var(--wa-txt);
+  border:1px solid var(--wa-borde);
+  border-radius:999px; text-decoration:none;
+  font-size:.8125rem; font-weight:600; letter-spacing:.02em;
+  box-shadow:0 8px 22px rgba(0,168,238,.34), 0 2px 6px rgba(18,26,74,.18);
+  transition:transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  isolation:isolate;
+}
+.wafx svg{ flex:none; position:relative; z-index:1 }
+.wafx__txt{ white-space:nowrap; position:relative; z-index:1 }
+.wafx:hover{ transform:translateY(-3px); box-shadow:0 12px 30px rgba(0,168,238,.44), 0 2px 6px rgba(18,26,74,.18) }
+
+/* Anillo que late una vez cada tanto, para que el boton se note sin molestar */
+.wafx__pulso{
+  position:absolute; inset:0; z-index:0;
+  border-radius:999px; border:2px solid var(--wa);
+  opacity:0; pointer-events:none;
+}
+.anim .wafx__pulso{ animation:latido 5.5s var(--ease-io) 2s infinite }
+@keyframes latido{
+  0%   { transform:scale(1);    opacity:.65 }
+  18%  { transform:scale(1.16); opacity:0 }
+  100% { transform:scale(1.16); opacity:0 }
+}
+@media (min-width:1100px){ .wafx{ right:1.5rem; bottom:1.5rem } }
+
+/* ============================================================
+   ENTRADAS
+   ============================================================ */
+.anim .rev{ opacity:0; transform:translateY(20px) }
+.anim .rev.in{ opacity:1; transform:none; transition:opacity .75s var(--ease),transform .75s var(--ease) }
+.anim .hero__h1 .ln>span{ transform:translateY(106%) }
+.anim .hero__h1.in .ln>span{ transform:none; transition:transform 1.1s var(--ease) }
+.anim .hero__h1.in .ln:nth-child(2)>span{ transition-delay:.09s }
+
+.anim .ben__l li:nth-child(2){ transition-delay:.07s }
+.anim .ben__l li:nth-child(3){ transition-delay:.14s }
+.anim .ben__l li:nth-child(4){ transition-delay:.21s }
+.anim .gal__i:nth-child(2){ transition-delay:.07s }
+.anim .gal__i:nth-child(3){ transition-delay:.14s }
+.anim .gal__i:nth-child(4){ transition-delay:.21s }
+.anim .tar:nth-child(2){ transition-delay:.07s }
+.anim .tar:nth-child(3){ transition-delay:.14s }
+.anim .q:nth-child(n+2){ transition-delay:.05s }
+/* Retiro de los retrasos al terminar, para que el hover no arrastre */
+.anim .ben__l li.done,.anim .gal__i.done,.anim .tar.done,.anim .q.done{ transition-delay:0s !important }
+
+
+/* ============================================================
+   ACENTOS DE MARCA
+   El azul y el celeste del logo, repartidos en detalles finos.
+   Ningun fondo de seccion cambia: solo lineas, numeros y bordes.
+   ============================================================ */
+
+/* Seleccion de texto en celeste */
+::selection{ background:var(--celeste-luz); color:var(--azul-hondo) }
+
+
+/* Numeros de beneficio: mas presentes, con el trazo del logo debajo */
+.ben__n{
+  display:inline-block; position:relative;
+  font-size:.8125rem; letter-spacing:.16em;
+  padding-bottom:.45rem; margin-bottom:.15rem;
+}
+.ben__n::after{
+  content:""; position:absolute; left:0; bottom:0;
+  width:20px; height:2px; background:var(--celeste);
+}
+
+/* Marcas de la casa: cada una arranca con el tick celeste */
+.marcas dt{ display:flex; align-items:baseline; gap:.6rem }
+.marcas dt::before{
+  content:""; flex:none; width:14px; height:2px;
+  background:var(--celeste); transform:translateY(-.3em);
+}
+
+/* FAQ: el mas en celeste y la pregunta abierta en azul */
+.q summary::after{
+  background:linear-gradient(var(--celeste-txt),var(--celeste-txt)) center/12px 2px no-repeat,
+             linear-gradient(var(--celeste-txt),var(--celeste-txt)) center/2px 12px no-repeat;
+}
+.q[open] summary{ color:var(--azul) }
+.q[open]{ border-top-color:var(--celeste) }
+
+/* Marcos de foto con un filo celeste muy tenue */
+.pres__fig,.ben__fig,.gal__i,.ubi__fig,.paso__fig{
+  box-shadow:0 0 0 1px rgba(0,168,238,.32);
+}
+
+/* Enlaces de texto: el subrayado toma el celeste */
+.ghost{ color:var(--celeste-txt) }
+.hero__cta .ghost,.fin .ghost,.foot .ghost{ color:inherit }
+
+/* Tarjeta de precio destacada: el filete se engrosa un poco */
+.tar--hi::before{ width:3px }
+
+/* La linea que se dibuja entre los dos pilares, mas visible */
+.pilar__sep path{ stroke-width:2.5 }
+
+/* ============================================================
+   BREAKPOINTS · mobile primero
+   ============================================================ */
+/* ============================================================
+   MEDIDA DE TEXTO Y CTA EN PANTALLAS ANGOSTAS
+   Los topes en ch estan pensados para columnas anchas de escritorio.
+   En una columna de 350px solo acortan lineas y estiran la pagina.
+   ============================================================ */
+@media (max-width:767px){
+  .pres__t p,.ben__l p,.paso p,.pilar__t,.marcas dd,.exp__t p,
+  .espacio__lead,.clases__lead,.benef__t,.q__a p,.ubi__t,.fin__l,
+  .hero__lead,.pilares__cta-t{ max-width:none }
+  .pilar{ max-width:none }
+
+  /* El CTA principal ocupa el ancho: en telefono un boton al 66% se lee timido */
+  .btn--lg{ width:100%; padding-inline:1rem }
+  .hero__cta{ display:grid; gap:var(--s2); justify-items:stretch }
+  .hero__cta .ghost{ justify-content:center }
+  .clases__cta,.precios__cta{ justify-items:stretch }
+}
+
+/* ---- 640px: telefono grande y tablet chica ---- */
+@media (min-width:640px){
+  .benef{ grid-template-columns:repeat(2,1fr) }
+  .foot__grid{ grid-template-columns:repeat(2,1fr) }
+  .clases__grid{ grid-template-columns:repeat(2,1fr) }
+  .marcas{ grid-template-columns:repeat(2,1fr) }
+}
+
+/* ---- 768px: tablet vertical, con reglas propias ----
+   Sin esto el iPad hereda el layout de telefono y las secciones
+   se estiran hasta cuatro pantallas. */
+@media (min-width:768px){
+  .gal{ grid-template-columns:repeat(2,1fr); align-items:start }
+  .gal__i:nth-child(even){ margin-top:clamp(1.5rem,4vw,3.5rem) }
+  .ben__grid{ grid-template-columns:1fr 1fr }
+  .ben__fig{ grid-row:span 2; align-self:stretch }
+  .ben__fig img{ height:100%; aspect-ratio:auto; min-height:420px }
+  .precios__tabla{ grid-template-columns:repeat(3,1fr); border-bottom:1px solid var(--linea) }
+  .tar{ border-bottom:none; border-right:1px solid var(--linea); padding-inline:var(--s3) }
+  .tar:first-child{ padding-left:0 }
+  .tar:last-child{ border-right:none }
+  /* Recien con la tabla en columnas la tarjeta puede crecer sin desbordar */
+  /* scale y no transform: la tarjeta lleva .rev y .rev.in fija transform:none */
+  .tar--hi{ scale:1.05; padding-block:clamp(1.9rem,3.6vw,2.6rem) }
+  .espacio__head,.clases__head{ grid-template-columns:1fr 1fr; align-items:end }
+  .clases__lead,.espacio__lead{ padding-bottom:.4rem }
+  .pilares__cta{ flex-direction:row; align-items:center; justify-content:space-between }
+}
+
+/* Solo tablet vertical: ahi el hero usa el modo a sangre y el titular
+   necesita crecer. En desktop manda la escala base, mas grande. */
+@media (min-width:768px) and (max-width:899px){
+  .hero__h1{ font-size:clamp(3.4rem,8.2vw,4.8rem) }
+  .pilar__h{ font-size:clamp(2.125rem,5.8vw,3.4rem) }
+}
+
+/* ---- 900px: tablet horizontal y desktop chico ----
+   El navbar recupera links y CTA aca, no a 1040. Un iPad
+   horizontal tiene 1024px y no necesita menu hamburguesa. */
+@media (min-width:900px){
+  .nav__links{ display:flex; gap:var(--s3) }
+  .nav__cta{ display:inline-flex }
+  .burger{ display:none }
+  .menu{ display:none !important }
+
+  .pres__grid{ grid-template-columns:1.08fr .92fr }
+  .exp__grid{ grid-template-columns:1.05fr .95fr }
+  .ubi__grid{ grid-template-columns:.95fr 1.05fr }
+  .ben__grid{ grid-template-columns:1fr 1.15fr 1fr }
+  .ben__fig{ grid-row:auto }
+  /* La figura se estira con la fila: la imagen tiene que llenarla o queda
+     una franja de fondo abajo. object-fit:cover se ocupa del recorte. */
+  .ben__fig img{ height:100%; aspect-ratio:auto; min-height:0 }
+  .tar{ padding-inline:var(--s4) }
+  .tar--hi{ padding-inline:var(--s4) }
+  .marcas{ grid-template-columns:repeat(2,1fr) }
+}
+
+/* ---- 1100px: desktop pleno ---- */
+@media (min-width:1100px){
+  .nav__links{ gap:var(--s4) }
+  .faq__grid{ grid-template-columns:.8fr 1fr; align-items:start }
+  .faq__head{ position:sticky; top:7rem }
+  .foot__grid{ grid-template-columns:1.5fr 1fr 1fr 1fr }
+}
+
+
+/* ============================================================
+   AJUSTES DE TELEFONO
+   No son reducciones de tamano: cambian proporcion y orden
+   para que cada seccion entre comoda en una pantalla de 844px.
+   ============================================================ */
+@media (max-width:639px){
+
+  /* El padding de 72px arriba y abajo se comia el 18% de cada pantalla */
+  .pres,.ben,.clases,.pilares,.exp,.espacio,.precios,.faq,.ubi{
+    padding-block:3.75rem;
+  }
+  .ben,.exp,.precios,.ubi{ padding-top:calc(3.75rem + .5rem) }
+  .fin{ padding-block:4rem }
+
+  /* Presentacion: la foto abre la seccion en vez de quedar
+     despues de tres parrafos seguidos */
+  .pres__fig{ order:-1; margin-bottom:var(--s1) }
+
+  /* La foto de beneficios se acuesta: en vertical medía 467px
+     y estiraba la seccion a 1,77 pantallas */
+  .ben__fig img{ aspect-ratio:4/3 }
+
+  /* Un poco mas de aire entre el numero y el titulo de cada beneficio */
+  .ben__l{ gap:var(--s3) }
+
+  /* El titular del cierre no necesita tanto respiro en telefono */
+  .fin__l{ margin-block:var(--s2) var(--s4) }
+
+  /* La pildora de WhatsApp no debe tapar el ultimo boton del cierre */
+  .fin{ padding-bottom:6.5rem }
+}
+
+/* ============================================================
+   MOVIMIENTO REDUCIDO
+   ============================================================ */
+@media (prefers-reduced-motion:reduce){
+  html{ scroll-behavior:auto }
+  *,*::before,*::after{
+    animation-duration:.01ms !important; animation-iteration-count:1 !important;
+    transition-duration:.01ms !important; transition-delay:0ms !important;
+  }
+  .anim .rev{ opacity:1 !important; transform:none !important }
+  .anim .hero__h1 .ln>span{ transform:none !important }
+  .anim .pilar__sep path{ stroke-dashoffset:0 !important }
+  .hero__pips{ display:none }
+}
+html.no-motion .rev{ opacity:1 !important; transform:none !important; transition:none !important }
+html.no-motion .hero__h1 .ln>span{ transform:none !important }
+html.no-motion .pilar__sep path{ stroke-dashoffset:0 !important }
+html.no-motion .hero{ height:auto !important }
+html.no-motion .hero__stage{ position:relative !important }
+html.no-motion .hero__pips{ display:none }
+
+/* Pausa global en pestañas ocultas. animation-play-state no se hereda. */
+body.paused *,body.paused *::before,body.paused *::after{ animation-play-state:paused !important }
+
+/* ============================================================
+   AJUSTES FINALES
+   Navbar pegajoso, ola animada, jerarquia de botones y hover
+   de beneficios. Va al final a proposito: gana por orden.
+   ============================================================ */
+
+:root{ --nav-h:75px }   /* alto real del navbar, medido en pantalla */
+
+/* ---------- Navbar pegajoso con vidrio ----------
+   Pasa de fixed a sticky: ahora ocupa lugar en el flujo, asi que
+   el hero descuenta su alto para que la primera pantalla cierre. */
+.nav{
+  position:sticky; inset:auto; top:0;
+  background:rgba(255,255,255,.85);
+  -webkit-backdrop-filter:blur(10px) saturate(140%);
+  backdrop-filter:blur(10px) saturate(140%);
+  border-bottom:1px solid var(--linea);
+}
+.nav.stuck{ background:rgba(255,255,255,.93) }
+@supports not ((backdrop-filter:blur(4px)) or (-webkit-backdrop-filter:blur(4px))){
+  .nav,.nav.stuck{ background:#fff }
+}
+
+.hero__stage{ height:calc(100svh - var(--nav-h)); min-height:520px }
+/* El escenario pegajoso arranca debajo del navbar, no atras */
+@media (min-width:900px){ .anim .hero__stage{ top:var(--nav-h) } }
+
+/* ---------- Ola animada al pie del hero ----------
+   Dos capas que se corren a distinta velocidad y en sentido opuesto.
+   Solo transform: corre en el compositor, no repinta.
+   z-index 1 la deja sobre la foto y el velo, y debajo del texto. */
+.hero__ola{
+  position:absolute; left:0; right:0; bottom:0; z-index:1;
+  height:clamp(46px,6vw,88px); overflow:hidden;
+  pointer-events:none; line-height:0;
+}
+.hero__ola svg{ width:300%; max-width:none; height:100%; display:block }
+.hero__ola-a{ fill:var(--canvas); opacity:.5 }
+.hero__ola-b{ fill:var(--canvas) }
+.anim .hero__ola-a{ animation:marea 28s linear infinite }
+.anim .hero__ola-b{ animation:marea 41s linear infinite reverse }
+@keyframes marea{
+  from{ transform:translate3d(0,0,0) }
+  to  { transform:translate3d(-33.3333%,0,0) }
+}
+/* El copy sube lo que mide la ola para que el boton no quede encima */
+.hero__copy{ padding-bottom:clamp(5.5rem,8vh + 3rem,7.5rem) }
+@media (min-width:900px){ .hero__copy{ padding-bottom:0 } }
+
+/* ---------- Subtitulo del titular ---------- */
+.hero__h1sub{
+  display:block; margin-top:.6em;
+  font-family:var(--texto); font-weight:400;
+  font-size:clamp(1rem,1.5vw,1.1875rem); line-height:1.45;
+  letter-spacing:0; color:#DDE6F2;
+}
+/* En desktop el hero es claro: el subtitulo cambia de tinta */
+@media (min-width:900px){ .hero__h1sub{ color:var(--tinta-2) } }
+
+/* ---------- Boton claro: el CTA de seccion ----------
+   El verde es de WhatsApp y en esta pagina pertenece a un solo
+   elemento: la pildora flotante. Todo el resto usa esta variante. */
+.btn--claro{
+  gap:.6rem; font-weight:600;
+  background:var(--wa); color:var(--wa-txt); border-color:var(--wa-borde);
+  box-shadow:0 6px 20px rgba(0,168,238,.26);
+}
+.btn--claro:hover{
+  background:var(--wa-hover); border-color:var(--wa-hover); color:var(--wa-txt);
+  box-shadow:0 10px 26px rgba(0,168,238,.36);
+}
+.btn--claro svg{ flex:none }
+
+/* ---------- Beneficios: cada item responde al cursor ----------
+   Se usa translate y no transform, porque `.anim .rev.in{transform:none}`
+   le gana por especificidad y borraria el desplazamiento. */
+.ben__l li{
+  padding:var(--s2) var(--s3);
+  border:1px solid transparent; border-radius:var(--r);
+  transition:translate .3s var(--ease), box-shadow .3s var(--ease),
+             border-color .3s var(--ease), background-color .3s var(--ease);
+}
+.ben__l li:hover,.ben__l li:focus-within{
+  translate:0 -5px;
+  background-color:var(--panel);
+  border-color:var(--linea);
+  box-shadow:0 14px 30px rgba(42,56,140,.13);
+}
+
+/* ---------- Entradas: 700ms con salida suave ---------- */
+.anim .rev{ opacity:0; transform:translateY(22px) }
+.anim .rev.in{
+  opacity:1; transform:none;
+  transition:opacity .7s ease-out, transform .7s ease-out;
+}
+
+/* La pildora verde es el unico verde: se le sube la presencia */
+.wafx{ box-shadow:0 10px 28px rgba(0,168,238,.38), 0 2px 6px rgba(18,26,74,.20) }
+
+@media (max-width:639px){
+  .ben__l li{ padding:.75rem var(--s2) }
+  /* Sin cursor el desplazamiento no se lee: en telefono no se aplica */
+  .ben__l li:hover{ translate:none; box-shadow:none; border-color:transparent; background-color:transparent }
+}
+
+/* La transicion de entrada reemplaza la del hover, porque `transition` es
+   una propiedad unica y `.anim .rev.in` gana. Las tarjetas que responden al
+   cursor vuelven a declarar las dos juntas, con mas especificidad. */
+.anim .ben__l li.rev.in{
+  transition:opacity .7s ease-out, transform .7s ease-out,
+             translate .3s var(--ease), box-shadow .3s var(--ease),
+             border-color .3s var(--ease), background-color .3s var(--ease);
+}
+.anim .tar.rev.in{
+  transition:opacity .7s ease-out, transform .7s ease-out,
+             background-color .3s var(--ease), border-color .3s var(--ease);
+}
+
+/* El titular ocupa tres renglones: cada .ln tiene que entrar en su columna
+   sin partirse, o el recorte de la entrada deja de leerse como un renglon.
+   Medido: "Fluidez, fuerza" son 579px a 92.8px y la columna da 671px. */
+@media (min-width:900px){
+  .hero__h1{ font-size:clamp(2.6rem,6.4vw,5.8rem) }
+}
+.anim .hero__h1.in .ln:nth-child(3)>span{ transition-delay:.18s }
+
+/* En 375px el kicker del hero se partia en dos renglones por una sola
+   palabra. Cede espaciado, no tamano. */
+@media (max-width:400px){
+  .hero .kicker{ letter-spacing:.14em }
+}
+
+/* La clase no-motion la pone el JS cuando el usuario cambia la preferencia
+   en caliente. Ahi tambien tienen que frenar las animaciones, no solo las
+   transiciones: la ola y el latido de la pildora seguian corriendo. */
+html.no-motion *,html.no-motion *::before,html.no-motion *::after{
+  animation:none !important;
+}
+
+/* Enlaces de texto que funcionan como CTA: area tactil completa */
+.bien__link,.espacio__link{ display:inline-flex; align-items:center; min-height:44px }
+
+/* ============================================================
+   PRECIOS · boton por tarjeta y modal de calificacion
+   ============================================================ */
+
+/* Solo para lectores de pantalla */
+.sr{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
+}
+
+/* ---------- El boton de cada plan ---------- */
+.tar__cta{
+  margin-top:var(--s3); justify-self:start;
+  min-height:44px; padding:.7rem 1.35rem;
+  font-size:.75rem; font-weight:500;
+  letter-spacing:.1em; text-transform:uppercase;
+  color:var(--azul); background:transparent;
+  border:1px solid var(--linea-2); border-radius:var(--r);
+  transition:background var(--dur) var(--ease), color var(--dur) var(--ease),
+             border-color var(--dur) var(--ease);
+}
+.tar__cta:hover{ background:var(--azul); border-color:var(--azul); color:#fff }
+/* En la tarjeta destacada el boton va lleno: es el camino que queremos */
+.tar--hi .tar__cta{ background:var(--azul); border-color:var(--azul); color:#fff }
+.tar--hi .tar__cta:hover{ background:var(--azul-noche); border-color:var(--azul-noche) }
+@media (max-width:767px){ .tar__cta{ justify-self:stretch; text-align:center } }
+
+/* ============================================================
+   MODAL · se abre desde cualquier tarjeta y arma el mensaje
+   ============================================================ */
+.modal{
+  position:fixed; inset:0; z-index:200;
+  display:grid; place-items:center;
+  padding:var(--s3);
+}
+.modal__fondo{
+  position:absolute; inset:0;
+  background:rgba(16,26,78,.58);
+  -webkit-backdrop-filter:blur(5px);
+  backdrop-filter:blur(5px);
+}
+@supports not ((backdrop-filter:blur(4px)) or (-webkit-backdrop-filter:blur(4px))){
+  .modal__fondo{ background:rgba(16,26,78,.82) }
+}
+
+.modal__caja{
+  position:relative; z-index:1;
+  width:min(30rem,100%);
+  max-height:min(92vh,44rem); overflow-y:auto; overscroll-behavior:contain;
+  background:var(--panel); color:var(--tinta);
+  border-radius:8px;
+  padding:clamp(1.75rem,5vw,2.5rem);
+  box-shadow:0 24px 60px rgba(16,26,78,.30), 0 2px 8px rgba(16,26,78,.16);
+}
+.anim .modal__fondo{ animation:modalFondo .28s var(--ease) both }
+.anim .modal__caja{ animation:modalCaja .34s var(--ease) both }
+@keyframes modalFondo{ from{ opacity:0 } to{ opacity:1 } }
+@keyframes modalCaja{ from{ opacity:0; transform:translateY(14px) scale(.985) } to{ opacity:1; transform:none } }
+
+.modal__x{
+  position:absolute; top:.75rem; right:.75rem;
+  width:44px; height:44px; display:grid; place-content:center;
+  color:var(--tinta-2); border-radius:50%;
+  transition:background var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.modal__x:hover{ background:var(--surface); color:var(--tinta) }
+
+.modal__tit{
+  font-family:var(--display); font-weight:300;
+  font-size:clamp(1.6rem,5vw,2.1rem); line-height:1.08; letter-spacing:-.022em;
+  padding-right:2.5rem;
+}
+.modal__sub{
+  font-family:var(--mono); font-size:.75rem;
+  letter-spacing:.14em; text-transform:uppercase;
+  color:var(--celeste-txt); margin-top:.65rem;
+}
+
+.modal__set{ border:0; padding:0; margin:var(--s4) 0 0; min-width:0; display:grid; gap:.6rem }
+
+/* Cada opcion es un radio real con la caja como area clickeable */
+.opc{ display:block; position:relative; cursor:pointer }
+.opc input{ position:absolute; opacity:0; width:1px; height:1px; margin:0; pointer-events:none }
+.opc__caja{
+  display:flex; align-items:flex-start; gap:.85rem;
+  padding:1rem 1.1rem; min-height:64px;
+  border:1px solid var(--linea); border-radius:var(--r);
+  background:var(--canvas);
+  transition:border-color var(--dur) var(--ease), background var(--dur) var(--ease),
+             box-shadow var(--dur) var(--ease);
+}
+.opc:hover .opc__caja{ border-color:var(--celeste) }
+.opc__marca{
+  flex:none; margin-top:.15rem;
+  width:20px; height:20px; border-radius:50%;
+  border:1.5px solid var(--linea-2);
+  display:grid; place-content:center;
+  transition:border-color var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+.opc__marca::after{
+  content:""; width:8px; height:8px; border-radius:50%;
+  background:#fff; transform:scale(0);
+  transition:transform var(--dur) var(--ease);
+}
+.opc__txt{ display:grid; gap:.15rem }
+.opc__t{ font-weight:500; font-size:1rem; line-height:1.3 }
+.opc__d{ font-size:.8125rem; color:var(--tinta-2); line-height:1.4 }
+
+.opc input:checked + .opc__caja{
+  border-color:var(--celeste); background:var(--espuma);
+  box-shadow:0 0 0 1px var(--celeste);
+}
+.opc input:checked + .opc__caja .opc__marca{ background:var(--azul); border-color:var(--azul) }
+.opc input:checked + .opc__caja .opc__marca::after{ transform:scale(1) }
+.opc input:focus-visible + .opc__caja{ outline:2px solid var(--celeste-txt); outline-offset:2px }
+
+.modal__pie{ display:grid; gap:.35rem; justify-items:center; margin-top:var(--s4) }
+/* Este es el unico verde fuera de la pildora flotante: cierra la conversion */
+.modal__ir{
+  width:100%; gap:.6rem; font-weight:600;
+  background:var(--wa); border-color:var(--wa); color:var(--wa-txt);
+  box-shadow:0 6px 20px rgba(0,168,238,.30);
+}
+.modal__ir:hover{
+  background:var(--wa-hover); border-color:var(--wa-hover); color:var(--wa-txt);
+  box-shadow:0 10px 26px rgba(0,168,238,.40);
+}
+.modal__ir svg{ flex:none }
+.modal__cancelar{
+  min-height:44px; padding:0 1rem;
+  font-size:.875rem; color:var(--tinta-2);
+  transition:color var(--dur) var(--ease);
+}
+.modal__cancelar:hover{ color:var(--tinta) }
+
+/* El scroll del fondo se congela mientras el modal esta abierto */
+body.modal-abierto{ overflow:hidden }
+
+/* En telefono el modal se apoya abajo: ahi llega el pulgar */
+@media (max-width:639px){
+  .modal{ place-items:end center; padding:0 }
+  .modal__caja{
+    width:100%; max-height:88vh;
+    border-radius:8px 8px 0 0;
+    padding:1.75rem 1.25rem calc(1.25rem + env(safe-area-inset-bottom));
+  }
+  .anim .modal__caja{ animation:modalHoja .34s var(--ease) both }
+  @keyframes modalHoja{ from{ transform:translateY(100%) } to{ transform:none } }
+}
+
+/* El boton de la tarjeta va por encima de la etiqueta que la cubre */
+.tar__cta{ position:relative; z-index:1 }
+
+/* Los dos CTA del encabezado tambien llevan a WhatsApp: mismo celeste */
+.nav__cta,.menu__cta{
+  background:var(--wa); color:var(--wa-txt); border-color:var(--wa-borde);
+}
+.nav__cta:hover,.menu__cta:hover{
+  background:var(--wa-hover); border-color:var(--wa-hover); color:var(--wa-txt);
+}
+
+/* modal__ir es un <a>, no un <button>: sin esto pierde el alto de .btn */
+a.modal__ir{ text-decoration:none }
+
+/* ============================================================
+   FOTOS DE CLASES
+   Las fotos del estudio son todas verticales, de telefono. El hueco
+   apaisado 4:3 en pantalla chica se comia mas de la mitad del cuadro,
+   asi que en telefono pasa a cuadrado: se ve el 77% en vez del 58%.
+   ============================================================ */
+@media (max-width:639px){
+  .paso__fig img{ aspect-ratio:1/1 }
+}
+/* En esta la figura esta en el tercio bajo del cuadro: si el recorte se
+   centra, en telefono le corta la pierna apoyada, que es la foto. */
+.paso__fig img.foco-bajo{ object-position:50% 60% }
+@media (max-width:639px){
+  .paso__fig img.foco-bajo{ object-position:50% 74% }
+}
+
+/* ============================================================
+   PILARES · dos columnas en pantalla ancha
+   Apilados median 1,57 pantallas para dos frases: mucho azul vacio.
+   Lado a lado, la onda pasa a ser la firma de la seccion en vez de
+   un separador, y las dos afirmaciones se leen de una sola mirada.
+   ============================================================ */
+@media (min-width:900px){
+  .pilares__grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    column-gap:clamp(2.5rem,7vw,6rem);
+    align-items:start;
+  }
+  .pilares__grid .pilar{ grid-row:1 }
+  .pilares__grid .pilar:not(.pilar--b){ grid-column:1 }
+  .pilares__grid .pilar--b{ grid-column:2 }
+  .pilares__grid .pilar{ max-width:none }
+  .pilares__grid .pilar__sep{
+    grid-column:1 / -1; grid-row:2;
+    margin-block:clamp(1.5rem,4vw,2.75rem) 0;
+  }
+}
+
+/* En telefono el bloque 02 alineado a la derecha deja el borde izquierdo
+   dentado: en una columna angosta cuesta leerlo. La simetria solo paga
+   cuando las dos columnas estan enfrentadas. */
+@media (max-width:899px){
+  .pilar--b,.pilar--b .pilar__t{ text-align:left; margin-left:0 }
+  .pilar--b{ margin-left:auto }
+}
