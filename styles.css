@@ -1211,11 +1211,12 @@ a.modal__ir{ text-decoration:none }
 @media (max-width:639px){
   .paso__fig img{ aspect-ratio:1/1 }
 }
-/* En esta la figura esta en el tercio bajo del cuadro: si el recorte se
-   centra, en telefono le corta la pierna apoyada, que es la foto. */
-.paso__fig img.foco-bajo{ object-position:50% 60% }
+/* El encuadre es dato de cada foto, no una regla del sitio: cada imagen
+   declara su propio foco con --foco (y --foco-tel para el recorte
+   cuadrado del telefono, que es mas agresivo). */
+.paso__fig img{ object-position:50% var(--foco,50%) }
 @media (max-width:639px){
-  .paso__fig img.foco-bajo{ object-position:50% 74% }
+  .paso__fig img{ object-position:50% var(--foco-tel,var(--foco,50%)) }
 }
 
 /* ============================================================
@@ -1248,3 +1249,8 @@ a.modal__ir{ text-decoration:none }
   .pilar--b,.pilar--b .pilar__t{ text-align:left; margin-left:0 }
   .pilar--b{ margin-left:auto }
 }
+
+/* La galeria tambien encuadra por foto: una de las imagenes tiene mucho
+   techo arriba y la otra viene de un video, con barras negras y marca de
+   agua en los bordes. El recorte las deja afuera. */
+.gal__i img{ object-position:50% var(--foco,50%) }

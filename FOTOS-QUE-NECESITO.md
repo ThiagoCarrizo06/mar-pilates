@@ -38,7 +38,7 @@ de esa tarjeta promete ("Resortes, altura, correas"). Lleva `object-position` ba
 porque la figura está en el tercio inferior del cuadro.
 
 Si algún día sacás la foto de la corrección — plano cerrado, la mano sobre un resorte o
-una correa, con alguien en la máquina — reemplaza a esta y es la que más te vende el
+una correa, con alguien arriba del reformer — reemplaza a esta y es la que más te vende el
 diferencial.
 
 **Permiso pendiente:** en `clases-01` se le ve la cara a una alumna, reconocible.

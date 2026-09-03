@@ -1,6 +1,6 @@
 # MAR Pilates · sitio web
 
-Landing del estudio de Pilates Reformer en La Madrid 4702, Mar del Plata.
+Landing del estudio de Pilates Reformer en Lamadrid 4702, Mar del Plata.
 HTML, CSS y JavaScript vanilla. Sin frameworks, sin build step, sin dependencias.
 
 ```
